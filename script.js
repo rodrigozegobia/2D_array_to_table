@@ -1,26 +1,34 @@
+let arr = [
+    ['foo','bar'],
+    ['foo'],
+    [],
+    ['foo',,,,'bar',1]
+];
+
+function filterSubArrays(arr) {
+    const filteredArr = [];
+    for (let i = 0; i < arr.length; i++) {
+      const subArr = arr[i].filter(val => typeof val === 'string' || !val);
+      filteredArr.push(subArr);
+    }
+    return filteredArr;
+  }
+
+function removeFalsyAtBeginning(array) { 
+    for (let i = 0; i < array.length; i++) {
+        while (!array[i][0]) {
+            array[i][0].shift();
+        }
+    }
+}
+
 /*
-var table = document.createElement("table");
-shift() removes first element of array
-*/
-
-var arr = prompt("Enter an array, separated by commas. Eg. Roger, John").split(",");
-var table = document.getElementById("table");
-var valid = arr.filter(val => typeof val === 'string' || !val);
-
-function removeFalseyAtBeginning(arr){
-    while (!arr[0]) {
-        arr.shift()
-    }
-    console.log(arr)
+function getLongestArray(arr){
+    let longest = arr.reduce((a, b) => {
+      return a.length > b.length ? a : b;
+    });
+    console.log(longest.length);
 }
-
-function buildTable(){
-    for (var i = 0; i < valid.length; i++) {
-        var row = table.insertRow();
-        var cell = row.insertCell();
-        cell.innerHTML = valid[i];
-    }
-}
-
-removeFalseyAtBeginning(valid)
-buildTable()
+console.log(arr)*/
+removeFalsyAtBeginning(arr)
+console.log(arr)
