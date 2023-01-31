@@ -64,17 +64,20 @@ thead.appendChild(row);
 table.appendChild(thead);
 
 function createTable(arr) {
-  for (var i = 0; i < arr.length; i++) {
-    var row = document.createElement("tr");
-    for (var j = 0; j < arr[i].length; j++) {
-      var cell = document.createElement("td");
-      cell.innerHTML = arr[i][j];
-      row.appendChild(cell);
+    for (var i = 0; i < arr.length; i++) {
+      var row = document.createElement("tr");
+      var rowNumCell = document.createElement("td");
+      rowNumCell.innerHTML = i + 1;
+      row.appendChild(rowNumCell);
+      for (var j = 0; j < arr[i].length; j++) {
+        var cell = document.createElement("td");
+        cell.innerHTML = arr[i][j];
+        row.appendChild(cell);
+      }
+      table.appendChild(row);
     }
-    table.appendChild(row);
+    return table;
   }
-  return table;
-}
 
 //Fills each row with empty elements until it fills the table length
 function fillTable(table, longestRowLength) {
