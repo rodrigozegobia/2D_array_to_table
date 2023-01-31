@@ -100,7 +100,7 @@ function traverseTable(table) {
     for (let j = cells.length - 1; j >= 0; j--) {
       if (cells[j].innerHTML === "") {
         emptyCell++;
-      } else if (emptyCell > 1) {
+      } else if ((emptyCell > 1)&&(j!=0)) {
         cells[j].setAttribute("colspan", emptyCell + 1);
         emptyCell = 0;
       } else {
