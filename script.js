@@ -123,7 +123,7 @@ function traverseTableRowsReverse(table) {
     } else if (emptyRows > 0) {
       // a partir daqui começa a ver as colunas
       for (let j = cells.length - 1; j >= 0; j--) {
-        if (!(cells[j].innerHTML === "")) {
+        if (!(cells[j].innerHTML === "")&&(j!=0)) {
           cells[j].setAttribute("rowspan", emptyRows + 1);
         } else {
           //nothing to do
