@@ -1,8 +1,9 @@
+//input 2D array
 let arr = [
-["foo", "bar"],
-["foo"],
-[''],
-["foo", '', '', '', "bar"]];
+["foo", "bar"], 
+["foo"], 
+[""], 
+["foo", "", "", "", "bar"]];
 
 //traverse array and sub-arrays and convert falsy values and non-string to empty array
 function convertFalsyToEmpty(arr) {
@@ -39,7 +40,7 @@ function findLongestSubArray(arr) {
   return longestLength;
 }
 
-let longest = findLongestSubArray(arr)+1;
+let longest = findLongestSubArray(arr) + 1;
 
 // Get the table element by ID
 var table = document.getElementById("table");
@@ -51,7 +52,7 @@ var thead = document.createElement("thead");
 var row = document.createElement("tr");
 
 // Create th elements and add them to the tr element
-for (let i = 0; i <= longest-1; i++) {
+for (let i = 0; i <= longest - 1; i++) {
   var col = document.createElement("th");
   col.innerHTML = i;
   row.appendChild(col);
@@ -64,20 +65,20 @@ thead.appendChild(row);
 table.appendChild(thead);
 
 function createTable(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      var row = document.createElement("tr");
-      var rowNumCell = document.createElement("td");
-      rowNumCell.innerHTML = i + 1;
-      row.appendChild(rowNumCell);
-      for (var j = 0; j < arr[i].length; j++) {
-        var cell = document.createElement("td");
-        cell.innerHTML = arr[i][j];
-        row.appendChild(cell);
-      }
-      table.appendChild(row);
+  for (var i = 0; i < arr.length; i++) {
+    var row = document.createElement("tr");
+    var rowNumCell = document.createElement("td");
+    rowNumCell.innerHTML = i + 1;
+    row.appendChild(rowNumCell);
+    for (var j = 0; j < arr[i].length; j++) {
+      var cell = document.createElement("td");
+      cell.innerHTML = arr[i][j];
+      row.appendChild(cell);
     }
-    return table;
+    table.appendChild(row);
   }
+  return table;
+}
 
 //Fills each row with empty elements until it fills the table length
 function fillTable(table, longestRowLength) {
@@ -100,7 +101,7 @@ function traverseTable(table) {
     for (let j = cells.length - 1; j >= 0; j--) {
       if (cells[j].innerHTML === "") {
         emptyCell++;
-      } else if ((emptyCell > 1)&&(j!=0)) {
+      } else if (emptyCell > 1 && j != 0) {
         cells[j].setAttribute("colspan", emptyCell + 1);
         emptyCell = 0;
       } else {
@@ -117,13 +118,19 @@ function traverseTableRowsReverse(table) {
   for (let i = table.rows.length - 1; i >= 0; i--) {
     const cells = table.rows[i].cells;
     let row = table.rows[i];
-    console.log(row.cells[0])
-    if (!row.firstElementChild.textContent.trim() || !row.textContent.trim().replace(row.firstElementChild.textContent, '').trim()) {
+    console.log(row.cells[0]);
+    if (
+      !row.firstElementChild.textContent.trim() ||
+      !row.textContent
+        .trim()
+        .replace(row.firstElementChild.textContent, "")
+        .trim()
+    ) {
       emptyRows++;
     } else if (emptyRows > 0) {
       // a partir daqui começa a ver as colunas
       for (let j = cells.length - 1; j >= 0; j--) {
-        if (!(cells[j].innerHTML === "")&&(j!=0)) {
+        if (!(cells[j].innerHTML === "") && j != 0) {
           cells[j].setAttribute("rowspan", emptyRows + 1);
         } else {
           //nothing to do
@@ -135,29 +142,20 @@ function traverseTableRowsReverse(table) {
   return table;
 }
 
-removeEmptyElements(traverseTableRowsReverse(traverseTable(fillTable(createTable(removeFirstEmptyElement(convertFalsyToEmpty(arr))),longest))));
-
+//Removes empty <td> elements from table rows
 function removeEmptyElements(table) {
-    for (let i = 0; i < table.rows.length; i++) {
-      let row = table.rows[i];
-      for (let j = 0; j < row.cells.length; j++) {
-        let cell = row.cells[j];
-        if (!cell.textContent.trim()) {
-          row.deleteCell(j);
-          j--;
-        }
+  for (let i = 0; i < table.rows.length; i++) {
+    let row = table.rows[i];
+    for (let j = 0; j < row.cells.length; j++) {
+      let cell = row.cells[j];
+      if (!cell.textContent.trim()) {
+        row.deleteCell(j);
+        j--;
       }
     }
-    return table;
   }
+  return table;
+}
 
-  function removeEmptyRows(table) {
-    for (let i = 0; i < table.rows.length; i++) {
-      let row = table.rows[i];
-      if (!row.innerHTML.trim()) {
-        table.deleteRow(i);
-        i--;
-      }
-    }
-    return table;
-  }
+//Finally using all functions together
+removeEmptyElements(traverseTableRowsReverse(traverseTable(fillTable(createTable(removeFirstEmptyElement(convertFalsyToEmpty(arr))),longest))));
