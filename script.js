@@ -117,11 +117,11 @@ function traverseTableRowsReverse(table) {
   for (let i = table.rows.length - 1; i >= 0; i--) {
     const cells = table.rows[i].cells;
     let row = table.rows[i];
-    if (!row.textContent.trim()) {
+    console.log(row.cells[0])
+    if (!row.firstElementChild.textContent.trim() || !row.textContent.trim().replace(row.firstElementChild.textContent, '').trim()) {
       emptyRows++;
     } else if (emptyRows > 0) {
       // a partir daqui começa a ver as colunas
-      //const cells = table.rows[i].cells;
       for (let j = cells.length - 1; j >= 0; j--) {
         if (!(cells[j].innerHTML === "")) {
           cells[j].setAttribute("rowspan", emptyRows + 1);
